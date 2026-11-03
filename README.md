@@ -1,15 +1,17 @@
 # Vacation Rental App
 
-A vacation rental application for customers, hosts, and admins.
+An application for customers to discover and book vacation rentals, hosts to
+manage listings, and admins to review listings and view activity.
 
-## Project structure
+## Project status
 
-```text
-backend/app/  FastAPI application
-tests/        API tests
-```
+The initial backend slice provides a health check and searchable mock rental
+listings. It validates guest counts and requested stay dates, including the
+14-night maximum. Listings and availability are in-memory demo data; bookings,
+accounts, role-based access, persistence, the UI, and cloud deployment are not
+implemented yet.
 
-## Getting started
+## Run the API
 
 Requires Python 3.11 or newer.
 
@@ -20,12 +22,33 @@ python -m pip install -e ".[dev]"
 uvicorn app.main:app --app-dir backend --reload
 ```
 
-The API is available at `http://127.0.0.1:8000`; interactive documentation is
-at `http://127.0.0.1:8000/docs`.
+The API is available at `http://127.0.0.1:8000`. Interactive API
+documentation is at `http://127.0.0.1:8000/docs`.
 
-Run tests with `pytest`.
+### Endpoints
 
-## Project details
+- `GET /health` — service health
+- `GET /api/listings` — search mock listings using `city`, `state`, `zip_code`,
+  and/or `guests`; optionally provide both `check_in` and `check_out` as
+  `YYYY-MM-DD` dates (stays may be at most 14 nights)
+
+Invalid search input returns a JSON error response.
+
+## Run tests
+
+```bash
+pytest
+```
+
+## Planned project work
+
+- Customer, host, and admin registration, login, and role permissions
+- Persistent listings, availability, bookings, cancellations, and reviews
+- Host and admin analytics
+- Web UI, maps integration, and cloud deployment
+- Component/deployment diagrams, sprint artifacts, and project journal
+
+## Team and project links
 
 - Team name: TBD
 - Team members and contribution areas: TBD
